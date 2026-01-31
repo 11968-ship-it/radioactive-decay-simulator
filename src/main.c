@@ -8,6 +8,7 @@
 
 int main(void)
 {
+FILE *F;
 double t;
 double lambda;
 double N;
