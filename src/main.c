@@ -39,9 +39,18 @@ double time_step;
   scanf("%lf", &time_step);
   printf("You entered: %.2f\n", time_step);
 
-  /* a header */
 
-  printf("Time('s'), Remaining, Percentage(%%) \n");
+  /* open the file output.csv, then Overwrites old content */
+  
+  F = fopen ("output.csv", "w");
+  if (F == NULL)
+  {
+      printf("Error opnening file\n");
+      return (1);
+  }
+
+  /* CSV header */
+  fprintf(F, "Time('s'),Remaining,Percentage(%%)\n");
   printf("----------------------------------------\n");
 
   /* loop start here */
@@ -50,8 +59,11 @@ double time_step;
     {
       N = N0 * exp(- lambda * t);
       percentage = (N / N0) * 100;
-      printf("%8.2f  %10.2f  %10.2f\n", t, N, percentage);
+      fprintf(F, "%.2f,%.2f,%.2f\n", t, N, percentage);
     }
-   
+
+  fclose(F);
+
+  printf("Results saved to output.csv\n");
   return (0);
 }
